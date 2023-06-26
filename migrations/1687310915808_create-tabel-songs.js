@@ -1,5 +1,3 @@
-exports.shorthands = undefined;
-
 exports.up = (pgm) => {
   pgm.createTable('songs', {
     id: {
@@ -24,14 +22,16 @@ exports.up = (pgm) => {
     },
     duration: {
       type: 'INTEGER',
-      notNull: true,
+      notNull: false,
     },
     album_id: {
       type: 'VARCHAR(50)',
-      notNull: true,
+      notNull: false,
+      references: 'albums',
+      onDelete: 'CASCADE',
     },
   });
-  pgm.createIndex('songs', ['album_id']);
+  pgm.createIndex('songs');
 };
 
 exports.down = (pgm) => {
