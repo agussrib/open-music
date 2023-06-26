@@ -5,8 +5,8 @@ const albums = require('./api/albums');
 const songs = require('./api/songs');
 const AlbumsService = require('./services/postgres/albumService');
 const SongsService = require('./services/postgres/songService');
-const ValidatorAlbum = require('./validator/albums');
-const ValidatorSong = require('./validator/songs');
+const AlbumsValidator = require('./validator/albums');
+const SongsValidator = require('./validator/songs');
 
 const init = async () => {
   const server = Hapi.server({
@@ -24,14 +24,14 @@ const init = async () => {
       plugin: albums,
       options: {
         service: new AlbumsService(),
-        validator: ValidatorAlbum,
+        validator: AlbumsValidator,
       },
     },
     {
       plugin: songs,
       options: {
         service: new SongsService(),
-        validator: ValidatorSong,
+        validator: SongsValidator,
       },
     },
   ]);

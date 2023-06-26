@@ -12,5 +12,6 @@ module.exports = {
     'no-console': 'off',
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
     camelcase: 'off',
+    'no-param-reassign': 'off',
   },
 };

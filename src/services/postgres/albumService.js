@@ -17,7 +17,7 @@ class AlbumsService {
     };
 
     const result = await this._pool.query(query);
-    if (!(await result).rows[0].id) {
+    if (!result.rows[0].id) {
       throw new InvariantError('Album gagal ditambahkan');
     }
 
@@ -26,7 +26,7 @@ class AlbumsService {
 
   async getAlbumById(id) {
     const query = {
-      text: 'SELECT * FROM albums WHERE id = $1',
+      text: 'SELECT id, name, year FROM albums WHERE id = $1',
       values: [id],
     };
 
@@ -36,14 +36,14 @@ class AlbumsService {
     }
 
     const album = result.rows[0];
-    const querySong = {
-      text: 'SELECT * FROM songs WHERE album_id = $1',
-      values: [id],
+    const albumSongsQuery = {
+      text: 'SELECT id, title, performer FROM songs WHERE album_id = $1',
+      values: [album.id],
     };
 
-    const resultSong = await this._pool.query(querySong);
-    if (resultSong.rowCount) {
-      album.songs = resultSong.rows;
+    const albumSongsResult = await this._pool.query(albumSongsQuery);
+    if (albumSongsResult.rowCount) {
+      album.songs = albumSongsResult.rows;
     }
 
     return album;
