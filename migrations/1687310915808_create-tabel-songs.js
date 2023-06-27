@@ -31,7 +31,7 @@ exports.up = (pgm) => {
       onDelete: 'CASCADE',
     },
   });
-  pgm.createIndex('songs');
+  pgm.createIndex('songs', 'album_id');
 };
 
 exports.down = (pgm) => {

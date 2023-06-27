@@ -44,6 +44,8 @@ class AlbumsService {
     const albumSongsResult = await this._pool.query(albumSongsQuery);
     if (albumSongsResult.rowCount) {
       album.songs = albumSongsResult.rows;
+    } else {
+      album.songs = [];
     }
 
     return album;

@@ -27,7 +27,7 @@ class SongsService {
     return result.rows[0].id;
   }
 
-  async getSongs(title, performer) {
+  async getSongs({ title, performer }) {
     if (!title) {
       title = '';
     }
@@ -36,7 +36,7 @@ class SongsService {
     }
 
     const query = {
-      text: 'SELECT id, title, performer FROM songs WHERE title LIKE $1 AND performer LIKE $2',
+      text: 'SELECT id, title, performer FROM songs WHERE title ILIKE $1 AND performer ILIKE $2',
       values: [`%${title}%`, `%${performer}%`],
     };
 
