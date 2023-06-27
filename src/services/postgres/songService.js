@@ -28,12 +28,8 @@ class SongsService {
   }
 
   async getSongs({ title, performer }) {
-    if (!title) {
-      title = '';
-    }
-    if (!performer) {
-      performer = '';
-    }
+    title = title || '';
+    performer = performer || '';
 
     const query = {
       text: 'SELECT id, title, performer FROM songs WHERE title ILIKE $1 AND performer ILIKE $2',
